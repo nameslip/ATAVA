@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Name Slip Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-container no-print">
+        <h1>✨ My Name Slip Generator ✨</h1>
+        <p>നിങ്ങളുടെ വിവരങ്ങൾ താഴെ ടൈപ്പ് ചെയ്ത് പ്രിന്റ് എടുക്കുക!</p>
+        
+        <div class="form-container">
+            <div class="input-group">
+                <label>Name:</label>
+                <input type="text" id="inputName" placeholder="Enter Name" oninput="updateSlip()">
+            </div>
+            <div class="input-group">
+                <label>Class:</label>
+                <input type="text" id="inputClass" placeholder="Enter Class (e.g., 2nd Grade)" oninput="updateSlip()">
+            </div>
+            <div class="input-group">
+                <label>Roll No:</label>
+                <input type="text" id="inputRoll" placeholder="Enter Roll Number" oninput="updateSlip()">
+            </div>
+            <div class="input-group">
+                <label>Subject:</label>
+                <input type="text" id="inputSubject" placeholder="Enter Subject" oninput="updateSlip()">
+            </div>
+            <div class="input-group">
+                <label>School:</label>
+                <input type="text" id="inputSchool" placeholder="Enter School Name" oninput="updateSlip()">
+            </div>
+            
+            <button class="print-btn" onclick="window.print()">🖨️ Print Slip</button>
+        </div>
+    </div>
+
+    <div class="slip-preview-area">
+        <div class="name-slip-box" id="nameSlip">
+            <div class="slip-border">
+                <div class="slip-header">MY BOOK SLIP</div>
+                <div class="slip-details">
+                    <p><strong>NAME:</strong> <span id="slipName">...................................................</span></p>
+                    <p><strong>CLASS:</strong> <span id="slipClass">......................</span> &nbsp;&nbsp;&nbsp;&nbsp; <strong>ROLL NO:</strong> <span id="slipRoll">..................</span></p>
+                    <p><strong>SUBJECT:</strong> <span id="slipSubject">................................................</span></p>
+                    <p><strong>SCHOOL:</strong> <span id="slipSchool">..................................................</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateSlip() {
+            document.getElementById('slipName').innerText = document.getElementById('inputName').value || "...................................................";
+            document.getElementById('slipClass').innerText = document.getElementById('inputClass').value || "......................";
+            document.getElementById('slipRoll').innerText = document.getElementById('inputRoll').value || "..................";
+            document.getElementById('slipSubject').innerText = document.getElementById('inputSubject').value || "................................................";
+            document.getElementById('slipSchool').innerText = document.getElementById('inputSchool').value || "..................................................";
+        }
+    </script>
+</body>
+</html>
