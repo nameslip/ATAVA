@@ -88,18 +88,48 @@
 }
 
 /* 🖨️ പ്രിന്റ് സെറ്റിംഗ്സ് */
+/* 🖨️ പ്രിന്റ് ചെയ്യുമ്പോൾ ഉള്ള കൃത്യമായ സെറ്റിംഗ്സ് */
 @media print {
-    body { background: white; padding: 0; }
-    .no-print { display: none !important; }
-    .preview-area { gap: 0; }
-    
-    .a4-page {
+    /* പ്രിന്റ് വിൻഡോയ്ക്ക് പുറത്തുള്ള ബാക്ക്ഗ്രൗണ്ടുകളും മാർജിനുകളും ഒഴിവാക്കാൻ */
+    html, body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
         width: 210mm;
         height: 297mm;
-        padding: 10mm;
-        box-shadow: none;
-        border-radius: 0;
-        display: grid !important; /* പ്രിന്റിലും ഗ്രിഡ് ലേഔട്ട് നിലനിർത്താൻ */
-        page-break-after: always;
+    }
+
+    /* ഫോം അടങ്ങുന്ന കണ്ടെയ്നർ പ്രിന്റിൽ പൂർണ്ണമായി ഒഴിവാക്കുന്നു */
+    .main-container {
+        display: none !important;
+    }
+
+    /* പ്രിന്റ് ഏരിയ കൃത്യമായി എക്സപ്റ്റ് ചെയ്യാൻ */
+    .preview-container {
+        display: block !important;
+        width: 210mm !important;
+    }
+
+    .preview-area {
+        gap: 0 !important;
+        display: grid !important;
+    }
+    
+    .a4-page {
+        width: 210mm !important;
+        height: 297mm !important;
+        padding: 10mm !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        display: grid !important;
+        page-break-after: always !important; /* ഓരോ 8 കാർഡ് കഴിയുമ്പോഴും പേജ് ബ്രേക്ക് ചെയ്യാൻ */
+        page-break-inside: avoid !important;
+    }
+
+    /* ബാക്ക്ഗ്രൗണ്ട് ഇമേജുകൾ പ്രിന്റിൽ വരാൻ നിർബന്ധമായും ഇത് വേണം */
+    .book-cover {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 }
