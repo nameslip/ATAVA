@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Book Cover Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-container no-print">
+        <h1>📚 Book Cover Generator</h1>
+        <p>വിവരങ്ങൾ നൽകി പ്രൊഫഷണൽ കവർ പേജ് ഉണ്ടാക്കൂ!</p>
+        
+        <div class="form-container">
+            <div class="input-group">
+                <label>Student Photo:</label>
+                <input type="file" id="inputPhoto" accept="image/*" onchange="loadPhoto(event)">
+            </div>
+            <div class="input-group">
+                <label>Custom Background:</label>
+                <input type="file" id="inputBg" accept="image/*" onchange="loadBackground(event)">
+            </div>
+            <div class="input-group">
+                <label>Student Name:</label>
+                <input type="text" id="inputName" placeholder="MUHAMMED ZIYAD KV" oninput="updateCovers()">
+            </div>
+            <div class="input-group">
+                <label>Class:</label>
+                <input type="text" id="inputClass" placeholder="Class: 4 A" oninput="updateCovers()">
+            </div>
+            <div class="input-group">
+                <label>Roll No:</label>
+                <input type="text" id="inputRoll" placeholder="Roll: 10" oninput="updateCovers()">
+            </div>
+            <div class="input-group">
+                <label>Subjects (One per line):</label>
+                <textarea id="inputSubjects" rows="5" placeholder="MATHEMATICS&#10;ISLAMIC&#10;ENGLISH" oninput="updateCovers()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>School:</label>
+                <input type="text" id="inputSchool" placeholder="JALALIYYA SCHOOL" oninput="updateCovers()">
+            </div>
+            
+            <button class="print-btn" onclick="window.print()">🖨️ Download / Print Cover</button>
+        </div>
+    </div>
+
+    <div id="printArea" class="preview-area"></div>
+
+    <script>
+        let studentPhotoData = "https://via.placeholder.com/150";
+        let customBgData = "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop";
+
+        function updateCovers() {
+            const name = document.getElementById('inputName').value || "MUHAMMED ZIYAD KV";
+            const className = document.getElementById('inputClass').value ? "Class: " + document.getElementById('inputClass').value : "Class: 4 A";
+            const roll = document.getElementById('inputRoll').value ? "Roll: " + document.getElementById('inputRoll').value : "Roll: 10";
+            const school = document.getElementById('inputSchool').value.toUpperCase() || "JALALIYYA SCHOOL";
+            
+            // സബ്‌ജക്റ്റുകൾ വരികളായി വേർതിരിക്കുന്നു
+            const subjectsText = document.getElementById('inputSubjects').value;
+            let subjects = subjectsText.split('\n').filter(sub => sub.trim() !== "");
+            
+            if(subjects.length === 0) {
+                subjects = ["MATHEMATICS"]; // ഡിഫോൾട്ട് സബ്‌ജക്റ്റ്
+            }
+
+            const printArea = document.getElementById('printArea');
+            printArea.innerHTML = ""; // പഴയവ ക്ലിയർ ചെയ്യാൻ
+
+            let currentPage;
+            
+            // ഒരു A4 പേജിൽ പരമാവധി 2 സ്ലിപ്പുകൾ (800x420px വലിപ്പമുള്ളതിനാൽ)
+            const slipsPerPage = 2; 
+
+            subjects.forEach((subject, index) => {
+                // ഓരോ 2 സ്ലിപ്പുകൾ കൂടുമ്പോഴും പുതിയ A4 പേജ് ഉണ്ടാക്കുന്നു
+                if (index % slipsPerPage === 0) {
+                    currentPage = document.createElement('div');
+                    currentPage.className = 'a4-page';
+                    printArea.appendChild(currentPage);
+                }
+
+                // സ്ലിപ്പിന്റെ HTML ഘടന
+                const slipHtml = `
+                    <div class="book-cover" style="background-image: url('${customBgData}');">
+                        <div class="cover-overlay">
+                            <div class="top-section">
+                                <div class="photo-box">
+                                    <img src="${studentPhotoData}" alt="Student Photo">
+                                </div>
+                                <div class="student-info">
+                                    <h2>${name}</h2>
+                                    <p><span>${className}</span> | <span>${roll}</span></p>
+                                </div>
+                            </div>
+                            <div class="subject-section">
+                                <div class="sub-title">
+                                    <span class="icon">📐</span>
+                                    <h3>${subject.toUpperCase()}</h3>
+                                </div>
+                            </div>
+                            <div class="footer-section">
+                                <hr class="line">
+                                <h4>${school}</h4>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                currentPage.innerHTML += slipHtml;
+            });
+        }
+
+        // സ്റ്റുഡന്റ് ഫോട്ടോ ലോഡ് ചെയ്യാൻ
+        function loadPhoto(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                studentPhotoData = reader.result;
+                updateCovers();
+            }
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
+        // കസ്റ്റം ബാക്ക്ഗ്രൗണ്ട് ഫോട്ടോ ലോഡ് ചെയ്യാൻ
+        function loadBackground(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                customBgData = reader.result;
+                updateCovers();
+            }
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
+        // ആദ്യ തവണ പേജ് ലോഡ് ചെയ്യുമ്പോൾ കാണിക്കാൻ
+        window.onload = updateCovers;
+    </script>
+</body>
+</html>
