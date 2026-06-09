@@ -68,30 +68,29 @@
             border-radius: 8px;
         }
 
-        /* 1. ചിത്രത്തിന്റെ ക്വാളിറ്റി കൂട്ടാൻ ഇത് മാറ്റുക */
-.book-cover {
-    width: 100%;
-    height: 62mm; 
-    background-size: cover;      /* ചിത്രം കാർഡിന് പാകത്തിന് കൃത്യമായി വരാൻ */
-    background-position: center; /* ചിത്രത്തിന്റെ നടുഭാഗം കൃത്യമായി കാണിക്കാൻ */
-    background-repeat: no-repeat;
-    border-radius: 8px; 
-    overflow: hidden;
-    position: relative;
-    border: 1px solid #ddd; 
-}
+        .book-cover {
+            width: 100%;
+            height: 62mm; 
+            background-size: cover;      
+            background-position: center; 
+            background-repeat: no-repeat;
+            border-radius: 8px; 
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ddd; 
+        }
 
-/* 2. ബാക്ക്ഗ്രൗണ്ട് തെളിഞ്ഞു കാണാൻ ഈ ഒപ്പസിറ്റി (0.35) കുറച്ച കോഡ് മാറ്റുക */
-.cover-overlay {
-    background: rgba(0, 0, 0, 0.35); /* ഇവിടെ 0.78 എന്നത് മാറ്റി 0.35 ആക്കി കട്ടി കുറച്ചു */
-    width: 100%;
-    height: 100%;
-    padding: 10px 15px; 
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+        .cover-overlay {
+            background: rgba(0, 0, 0, 0.35); 
+            width: 100%;
+            height: 100%;
+            padding: 10px 15px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .top-section {
             display: flex;
             justify-content: space-between;
@@ -115,6 +114,7 @@
             margin: 0;
             font-size: 13px; 
             font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
         }
 
         .student-info p {
@@ -147,6 +147,7 @@
             font-size: 18px; 
             font-weight: 800;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         }
 
         .footer-section {
@@ -167,6 +168,17 @@
             letter-spacing: 0.5px;
             font-weight: 600;
             color: #dfdfdf;
+        }
+
+        /* ⚡ ATAVA ബ്രാൻഡ് നെയിം സ്റ്റൈൽ ഇവിടെ ചേർത്തു */
+        .brand-name {
+            font-size: 8px; 
+            color: rgba(255, 255, 255, 0.4); 
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 4px;
+            text-align: center;
+            text-transform: uppercase;
         }
 
         @media print {
@@ -229,7 +241,7 @@
             </div>
             <div class="input-group">
                 <label>Student Name:</label>
-                <input type="text" id="inputName" placeholder="TYPE NAME" oninput="updateCovers()">
+                <input type="text" id="inputName" placeholder="MUHAMMED ZIYAD KV" oninput="updateCovers()">
             </div>
             <div class="input-group">
                 <label>Class:</label>
@@ -245,7 +257,7 @@
             </div>
             <div class="input-group">
                 <label>School:</label>
-                <input type="text" id="inputSchool" placeholder="SCHOOL NAME" oninput="updateCovers()">
+                <input type="text" id="inputSchool" placeholder="JALALIYYA SCHOOL" oninput="updateCovers()">
             </div>
             
             <button class="print-btn" onclick="window.print()">🖨️ Download / Print Cover</button>
@@ -258,14 +270,13 @@
 
     <script>
         let studentPhotoData = "https://via.placeholder.com/150";
-        // ഡിഫോൾട്ട് ബാക്ക്ഗ്രൗണ്ട് ഇമേജ് ലിസ്റ്റ്
         let customBgList = ["https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop"];
 
         function updateCovers() {
-            const name = document.getElementById('inputName').value || "TYPE NAME";
+            const name = document.getElementById('inputName').value || "MUHAMMED ZIYAD KV";
             const className = document.getElementById('inputClass').value ? "Class: " + document.getElementById('inputClass').value : "Class: 4 A";
             const roll = document.getElementById('inputRoll').value ? "Roll: " + document.getElementById('inputRoll').value : "Roll: 10";
-            const school = document.getElementById('inputSchool').value.toUpperCase() || "SCHOOL NAME";
+            const school = document.getElementById('inputSchool').value.toUpperCase() || "JALALIYYA SCHOOL";
             
             const subjectsText = document.getElementById('inputSubjects').value;
             let subjects = subjectsText.split('\n').filter(sub => sub.trim() !== "");
@@ -287,10 +298,9 @@
                     printArea.appendChild(currentPage);
                 }
 
-                // ഓരോ സബ്‌ജക്റ്റിനും വെവ്വേറെ ഇമേജ് നൽകുന്നു. 
-                // അപ്‌ലോഡ് ചെയ്ത ചിത്രങ്ങളേക്കാൾ കൂടുതൽ സബ്‌ജക്റ്റ് ഉണ്ടെങ്കിൽ ലിസ്റ്റിലെ ആദ്യത്തെ ചിത്രം വീണ്ടും എടുക്കും.
                 const currentBg = customBgList[index % customBgList.length];
 
+                /* ⚡ ദാ, താഴെ കാണുന്ന ഭാഗത്താണ് ATAVA ബ്രാൻഡ് നെയിം ഓട്ടോമാറ്റിക് ആയി വരാൻ സെറ്റ് ചെയ്തിട്ടുള്ളത് */
                 const slipHtml = `
                     <div class="book-cover" style="background-image: url('${currentBg}');">
                         <div class="cover-overlay">
@@ -312,6 +322,7 @@
                             <div class="footer-section">
                                 <hr class="line">
                                 <h4>${school}</h4>
+                                <div class="brand-name">⚡ Powered by ATAVA</div>
                             </div>
                         </div>
                     </div>
@@ -331,12 +342,11 @@
             }
         }
 
-        // ഒന്നിലധികം ബാക്ക്ഗ്രൗണ്ട് ഇമേജുകൾ ഒന്നിച്ച് റീഡ് ചെയ്യാൻ
         function loadMultipleBackgrounds(event) {
             const files = event.target.files;
             if (files.length === 0) return;
 
-            customBgList = []; // പഴയ ലിസ്റ്റ് ക്ലിയർ ചെയ്യുന്നു
+            customBgList = []; 
             let loadedCount = 0;
 
             for (let i = 0; i < files.length; i++) {
@@ -345,7 +355,6 @@
                     customBgList.push(e.target.result);
                     loadedCount++;
                     
-                    // എല്ലാ ചിത്രങ്ങളും ലോഡ് ആയിക്കഴിഞ്ഞാൽ കവർ അപ്‌ഡേറ്റ് ചെയ്യും
                     if (loadedCount === files.length) {
                         updateCovers();
                     }
