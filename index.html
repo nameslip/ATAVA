@@ -26,7 +26,6 @@
             margin-bottom: 25px;
         }
 
-        /* 🎯 സൈറ്റ് തുറക്കുമ്പോൾ മുകളിൽ കാണാൻ ഉള്ള കമ്പനി ലോഗോ */
         .company-logo-container {
             margin-bottom: 15px;
             display: flex;
@@ -207,7 +206,7 @@
 
     <div class="main-container">
         <div class="company-logo-container">
-            <img class="company-logo" id="mainLogo" src="https://i.imgur.com/vHqQO6W.jpeg" alt="ATAVA Logo">
+            <img class="company-logo" id="mainLogo" src="LOGO 2.jpg" alt="ATAVA Logo">
         </div>
 
         <h1>📚 Book Cover Generator</h1>
@@ -217,7 +216,7 @@
             <div class="input-group" style="background: #eef1ff; padding: 10px; border-radius: 8px; border: 1px dashed #5d6bca;">
                 <label style="color: #4a55a2;">👦 Upload Student Photo:</label>
                 <input type="file" id="inputPhoto" accept="image/*" onchange="loadStudentPhoto(event)">
-                <span class="hint-text" style="color: #666;">കുട്ടിയുടെ ഫോട്ടോ ഇവിടെ അപ്‌ലോഡ് ചെയ്യക്കാം.</span>
+                <span class="hint-text" style="color: #666;">കുട്ടിയുടെ ഫോട്ടോ ഇവിടെ അപ്‌ലോഡ് ചെയ്യാം.</span>
             </div>
 
             <div class="input-group">
@@ -260,6 +259,17 @@
         let customBgList = ["https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop"];
 
         window.addEventListener('DOMContentLoaded', () => {
+            // ഫയലിന്റെ പേര് സ്പേസ് ഒഴിവാക്കി കൃത്യമാക്കാൻ ഉള്ള ബാക്ക്-അപ്പ് റൂൾസ്
+            const mainLogoImg = document.getElementById('mainLogo');
+            mainLogoImg.onerror = function() {
+                this.src = "LOGO%202.jpg"; 
+                this.onerror = function() {
+                    this.src = "logo 2.jpg";
+                    this.onerror = function() {
+                        this.src = "LOGO 2.jpg.jpg";
+                    };
+                };
+            };
             updateCovers();
         });
 
