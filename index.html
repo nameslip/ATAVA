@@ -26,14 +26,11 @@
             margin-bottom: 25px;
         }
 
-        /* 🎯 സൈറ്റ് തുറക്കുമ്പോൾ മുകളിൽ കാണാൻ ഉള്ള കമ്പനി ലോഗോ */
         .company-logo-container {
             margin-bottom: 15px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 8px;
         }
 
         .company-logo {
@@ -115,7 +112,6 @@
             align-items: center;
         }
 
-        /* 📸 നെയിംസ്ലിപ്പിൽ കുട്ടിയുടെ ഫോട്ടോ സൈഡിൽ വരാൻ ഉള്ള സ്റ്റൈൽ */
         .student-photo-box {
             width: 50px;
             height: 50px;
@@ -134,19 +130,24 @@
         .student-info {
             text-align: right;
             color: white;
+            /* 🎯 പേരും വിവരങ്ങളും എല്ലാം നിർബന്ധമായും CAPITAL LETTERS ആക്കാൻ */
+            text-transform: uppercase; 
         }
 
         .student-info h2 {
             margin: 0;
-            font-size: 14px; 
+            font-size: 13px; 
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.5px;
         }
 
         .student-info p {
             margin: 2px 0 0 0;
             color: #e0e0e0;
-            font-size: 11px;
+            font-size: 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .subject-section {
@@ -163,11 +164,15 @@
             font-weight: bold;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
             letter-spacing: 1px;
+            /* 🎯 സബ്ജക്റ്റുകൾ CAPITAL LETTERS ആക്കാൻ */
+            text-transform: uppercase; 
         }
 
         .footer-section {
             text-align: center;
             color: white;
+            /* 🎯 സ്കൂളിന്റെ പേര് CAPITAL LETTERS ആക്കാൻ */
+            text-transform: uppercase; 
         }
 
         .line {
@@ -181,6 +186,7 @@
             margin: 0;
             font-size: 10px; 
             color: #dfdfdf;
+            letter-spacing: 0.5px;
         }
 
         .brand-name {
@@ -202,18 +208,16 @@
 <body>
 
     <div class="main-container">
-        <!-- 🎯 മുകളിൽ കമ്പനി ലോഗോ കാണിക്കുന്ന ഇടം -->
+        <!-- 🎯 കസ്റ്റമർ കാണുന്ന മുകളിലെ ലോഗോ (ഇനി ലിങ്ക് വഴി ഓട്ടോമാറ്റിക് ആയി വരും) -->
         <div class="company-logo-container">
-            <img class="company-logo" id="mainLogo" src="LOGO 2.jpg.jpg" alt="ATAVA Logo">
-            <!-- 🔄 ലോഗോ ഓട്ടോമാറ്റിക് ആയി വന്നില്ലെങ്കിൽ മാനുവൽ ആയി സെറ്റ് ചെയ്യാനുള്ള ചെറിയ ബട്ടൺ (പ്രിന്റ് ചെയ്യുമ്പോൾ ഇത് കാണില്ല) -->
-            <input type="file" id="uploadLogo" accept="image/*" onchange="loadCompanyLogo(event)" style="font-size: 11px; max-width: 180px;">
+            <img class="company-logo" id="mainLogo" alt="ATAVA Logo">
         </div>
 
         <h1>📚 Book Cover Generator</h1>
         <p>വിവരങ്ങൾ നൽകി പ്രൊഫഷണൽ കവർ പേജ് ഉണ്ടാക്കൂ!</p>
         
         <div class="form-container">
-            <!-- 👦 കുട്ടിയുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യാനുള്ള ഓപ്ഷൻ -->
+            <!-- 👦 കുട്ടിയുടെ ഫോട്ടോ അപ്‌ലോഡ് ഓപ്ഷൻ -->
             <div class="input-group" style="background: #eef1ff; padding: 10px; border-radius: 8px; border: 1px dashed #5d6bca;">
                 <label style="color: #4a55a2;">👦 Upload Student Photo:</label>
                 <input type="file" id="inputPhoto" accept="image/*" onchange="loadStudentPhoto(event)">
@@ -257,24 +261,28 @@
     </div>
 
     <script>
+        // 🎯 ലോഗോയുടെ ഫയൽ നെയിം പ്രശ്നങ്ങൾ ഒഴിവാക്കാൻ നേരിട്ട് റിലേറ്റീവ് പാത്ത് നൽകി
+        const globalLogoData = "logo%202.jpg.jpg"; 
         let studentPhotoData = null;
         let customBgList = ["https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop"];
 
+        // പേജ് ലോഡാകുമ്പോൾ ലോഗോ കൃത്യമായി കാണിക്കാൻ
         window.addEventListener('DOMContentLoaded', () => {
+            const mainLogoImg = document.getElementById('mainLogo');
+            
+            // ലോക്കൽ ഫയൽ നെയിം മാച്ച് ചെയ്യാൻ പല ഫോർമാറ്റുകൾ ട്രൈ ചെയ്യും
+            mainLogoImg.src = "LOGO 2.jpg.jpg";
+            mainLogoImg.onerror = function() {
+                this.src = "logo 2.jpg.jpg";
+                this.onerror = function() {
+                    this.src = "LOGO 2.jpg";
+                    this.onerror = function() {
+                        this.src = "logo 2.jpg";
+                    };
+                };
+            };
             updateCovers();
         });
-
-        // 🔄 ഹോസ്റ്റിംഗിൽ ഫയൽ നെയിം മാറിയാലും ലോഗോ സെറ്റ് ചെയ്യാനുള്ള ഫങ്ക്ഷൻ
-        function loadCompanyLogo(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('mainLogo').src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        }
 
         function loadStudentPhoto(event) {
             const file = event.target.files[0];
@@ -292,7 +300,7 @@
             const name = document.getElementById('inputName').value || "";
             const className = document.getElementById('inputClass').value || "";
             const roll = document.getElementById('inputRoll').value || "";
-            const school = document.getElementById('inputSchool').value.toUpperCase() || "";
+            const school = document.getElementById('inputSchool').value || "";
             
             const subjectsText = document.getElementById('inputSubjects').value;
             let subjects = subjectsText.split('\n').filter(sub => sub.trim() !== "");
@@ -316,9 +324,14 @@
 
                 const currentBg = customBgList[index % customBgList.length];
 
+                // 🎯 ക്ലാസ്സും റോളും തിരികെ തിരിച്ചറിയാൻ പാകത്തിൽ 'CLASS:', 'ROLL NO:' എന്ന് ലേബലുകൾ വെച്ചു
                 let infoLine = "";
-                if (className || roll) {
-                    infoLine = `${className} ${className && roll ? '|' : ''} ${roll}`;
+                if (className && roll) {
+                    infoLine = `CLASS: ${className} | ROLL NO: ${roll}`;
+                } else if (className) {
+                    infoLine = `CLASS: ${className}`;
+                } else if (roll) {
+                    infoLine = `ROLL NO: ${roll}`;
                 }
 
                 let photoHtml = '<div class="photo-placeholder"></div>';
@@ -330,7 +343,6 @@
                     <div class="book-cover" style="background-image: url('${currentBg}');">
                         <div class="cover-overlay">
                             <div class="top-section">
-                                <!-- നെയിംസ്ലിപ്പിൽ കുട്ടിയുടെ ഫോട്ടോ മാത്രം (ലോഗോ ഇല്ല) -->
                                 ${photoHtml}
                                 <div class="student-info">
                                     <h2>${name}</h2>
@@ -339,7 +351,7 @@
                             </div>
                             <div class="subject-section">
                                 <div class="sub-title">
-                                    <h3>${subject.toUpperCase()}</h3>
+                                    <h3>${subject}</h3>
                                 </div>
                             </div>
                             <div class="footer-section">
