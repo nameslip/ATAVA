@@ -33,14 +33,15 @@
             align-items: center;
         }
 
+        /* 🎯 പുതിയ വെളുത്ത ലോഗോയ്ക്ക് ഭംഗി കൂട്ടാൻ ബാക്ക്ഗ്രൗണ്ട് വൈറ്റ് ആക്കി മാറ്റി */
         .company-logo {
             width: 100px; 
             height: 100px;
             border-radius: 50%;
             object-fit: cover; 
             border: 3px solid #d4af37;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            background-color: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: #ffffff; 
         }
 
         h1 { color: #333; font-size: 24px; margin-bottom: 5px; margin-top: 10px; }
@@ -206,7 +207,7 @@
 
     <div class="main-container">
         <div class="company-logo-container">
-            <img class="company-logo" id="mainLogo" src="LOGO 2.jpg" alt="ATAVA Logo">
+            <img class="company-logo" id="mainLogo" src="LOGO 3.jpg" alt="ATAVA Logo">
         </div>
 
         <h1>📚 Book Cover Generator</h1>
@@ -259,14 +260,14 @@
         let customBgList = ["https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop"];
 
         window.addEventListener('DOMContentLoaded', () => {
-            // ഫയലിന്റെ പേര് സ്പേസ് ഒഴിവാക്കി കൃത്യമാക്കാൻ ഉള്ള ബാക്ക്-അപ്പ് റൂൾസ്
+            // ലോഗോ ഫയൽ നേമം സ്പേസ് ഉൾപ്പെടെയുള്ള മാറ്റങ്ങൾ കൈകാര്യം ചെയ്യാൻ
             const mainLogoImg = document.getElementById('mainLogo');
             mainLogoImg.onerror = function() {
-                this.src = "LOGO%202.jpg"; 
+                this.src = "LOGO%203.jpg"; 
                 this.onerror = function() {
-                    this.src = "logo 2.jpg";
+                    this.src = "logo 3.jpg";
                     this.onerror = function() {
-                        this.src = "LOGO 2.jpg.jpg";
+                        this.src = "LOGO 3.JPG";
                     };
                 };
             };
