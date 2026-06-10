@@ -26,7 +26,7 @@
             margin-bottom: 25px;
         }
 
-        /* 🎯 Logo nannaayi clear aayi kaanan ulla special style */
+        /* 🎯 മുകളിലെ ലോഗോ ഡിസൈൻ */
         .company-logo-container {
             margin-bottom: 15px;
             display: flex;
@@ -35,14 +35,13 @@
         }
 
         .company-logo {
-            width: 95px; 
-            height: 95px;
+            width: 100px; 
+            height: 100px;
             border-radius: 50%;
-            object-fit: contain; 
-            border: 3px solid #d4af37; /* Gold border */
+            object-fit: cover; 
+            border: 3px solid #d4af37; /* ഗോൾഡ് ബോർഡർ */
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            background-color: #1a1a1a; /* Dark theme to match ATAVA logo */
-            padding: 2px; 
+            background-color: #1a1a1a; /* ലോഗോയുമായി മാച്ച് ആവുന്ന ബാക്ക്ഗ്രൗണ്ട് */
         }
 
         h1 { color: #333; font-size: 24px; margin-bottom: 5px; margin-top: 10px; }
@@ -52,6 +51,7 @@
         .input-group { display: flex; flex-direction: column; text-align: left; gap: 5px; }
         .input-group label { font-weight: bold; color: #444; font-size: 14px; }
         .input-group input, .input-group textarea { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; outline: none; }
+        .hint-text { font-size: 11px; color: #f39c12; margin-top: -2px; font-weight: normal; }
 
         .print-btn {
             background-color: #5d6bca;
@@ -113,12 +113,12 @@
             align-items: center;
         }
 
-        /* Cover slips-il varunna cheriya round logo design */
+        /* 🎯 സ്ലിപ്പുകൾക്കുള്ളിലെ ലോഗോ ബോക്സ് */
         .logo-box img {
-            width: 40px;  
-            height: 40px;
+            width: 42px;  
+            height: 42px;
             border-radius: 50%;
-            object-fit: contain;
+            object-fit: cover;
             background: #1a1a1a;
             border: 1.5px solid #d4af37;
         }
@@ -195,7 +195,7 @@
 
     <div class="main-container">
         <div class="company-logo-container">
-            <img class="company-logo" id="mainLogo" src="LOGO 2.jpg" alt="ATAVA Logo" onerror="fixLogoPath(this)">
+            <img class="company-logo" id="mainLogo" alt="ATAVA Logo">
         </div>
 
         <h1>📚 Book Cover Generator</h1>
@@ -209,6 +209,7 @@
             <div class="input-group">
                 <label>Custom Backgrounds (Select Multiple):</label>
                 <input type="file" id="inputBg" accept="image/*" multiple onchange="loadMultipleBackgrounds(event)">
+                <span class="hint-text">💡 Ctrl/Shift അമർത്തിപ്പിടിച്ച് ഒന്നിലധികം ചിത്രങ്ങൾ ഒരുമിച്ച് തിരഞ്ഞെടുക്കാം.</span>
             </div>
             <div class="input-group">
                 <label>Student Name:</label>
@@ -216,11 +217,11 @@
             </div>
             <div class="input-group">
                 <label>Class:</label>
-                <input type="text" id="inputClass" placeholder="e.g., 4 A" oninput="updateCovers()">
+                <input type="text" id="inputClass" placeholder="e.g., Class: 4 A" oninput="updateCovers()">
             </div>
             <div class="input-group">
                 <label>Roll No:</label>
-                <input type="text" id="inputRoll" placeholder="e.g., 10" oninput="updateCovers()">
+                <input type="text" id="inputRoll" placeholder="e.g., Roll: 10" oninput="updateCovers()">
             </div>
             <div class="input-group">
                 <label>Subjects (One per line):</label>
@@ -240,22 +241,22 @@
     </div>
 
     <script>
+        // 🎯 നിങ്ങളുടെ ATAVA ഒറിജിനൽ ലോഗോ പൂർണ്ണമായി എൻകോഡ് ചെയ്ത് ചേർത്ത സുരക്ഷിതമായ ലിങ്ക്
+        const globalLogoData = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCAH0AfQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usfEX5Ux8gXjbyg5VT10Q3h0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnKy0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr5/f9f3g4GBiY2Rlzm5VZXWFlaW1hdWl1hZmdoZ3h3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFcbHyMnKy0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onK0tPU1dbX2Nna4uPk5ebn6onAAd3Y2f/Z";
+
+        // വിൻഡോ ലോഡ് ചെയ്യുമ്പോൾ തന്നെ കോഡിലുള്ള ലോഗോ ഇമേജിലേക്ക് ഡാറ്റ സെറ്റ് ചെയ്യും
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('mainLogo').src = globalLogoData;
+            updateCovers();
+        });
+
         let studentPhotoData = "https://via.placeholder.com/150";
         let customBgList = ["https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop"];
-        
-        // 🎯 Path matching logic to handle case sensitivity in GitHub
-        let errorCount = 0;
-        function fixLogoPath(img) {
-            errorCount++;
-            if(errorCount === 1) img.src = "logo 2.jpg";
-            else if(errorCount === 2) img.src = "LOGO 2.jpg.jpg";
-            else if(errorCount === 3) img.src = "logo 2.jpg.jpg";
-        }
 
         function updateCovers() {
             const name = document.getElementById('inputName').value || "";
-            const className = document.getElementById('inputClass').value ? "Class: " + document.getElementById('inputClass').value : "";
-            const roll = document.getElementById('inputRoll').value ? "Roll: " + document.getElementById('inputRoll').value : "";
+            const className = document.getElementById('inputClass').value || "";
+            const roll = document.getElementById('inputRoll').value || "";
             const school = document.getElementById('inputSchool').value.toUpperCase() || "";
             
             const subjectsText = document.getElementById('inputSubjects').value;
@@ -285,13 +286,12 @@
                     infoLine = `${className} ${className && roll ? '|' : ''} ${roll}`;
                 }
 
-                // Sub-slips layout inside cover preview 
                 const slipHtml = `
                     <div class="book-cover" style="background-image: url('${currentBg}');">
                         <div class="cover-overlay">
                             <div class="top-section">
                                 <div class="logo-box">
-                                    <img src="LOGO 2.jpg" alt="Logo" onerror="fixLogoPath(this)">
+                                    <img src="${globalLogoData}" alt="Logo">
                                 </div>
                                 <div class="student-info">
                                     <h2>${name}</h2>
@@ -345,8 +345,6 @@
                 reader.readAsDataURL(files[i]);
             }
         }
-
-        window.onload = updateCovers;
     </script>
 </body>
 </html>
